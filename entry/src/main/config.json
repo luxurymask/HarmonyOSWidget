@@ -1,0 +1,78 @@
+{
+  "app": {
+    "bundleName": "com.liuxl.harmonyoswidget",
+    "vendor": "liuxl",
+    "version": {
+      "code": 1000000,
+      "name": "1.0.0"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.liuxl.harmonyoswidget",
+    "name": ".MyApplication",
+    "mainAbility": "com.liuxl.harmonyoswidget.MainAbility",
+    "deviceType": [
+      "phone"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": true
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "name": "com.liuxl.harmonyoswidget.MainAbility",
+        "icon": "$media:icon",
+        "description": "$string:mainability_description",
+        "formsEnabled": true,
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "forms": [
+          {
+            "jsComponentName": "widget",
+            "isDefault": true,
+            "scheduledUpdateTime": "10:30",
+            "defaultDimension": "2*2",
+            "name": "widget",
+            "description": "吸色效果卡片",
+            "colorMode": "auto",
+            "type": "JS",
+            "supportDimensions": [
+              "2*2",
+              "2*4"
+            ],
+            "updateEnabled": true,
+            "updateDuration": 1
+          }
+        ],
+        "launchType": "standard"
+      }
+    ],
+    "js": [
+      {
+        "pages": [
+          "pages/index24/index"
+        ],
+        "name": "widget",
+        "window": {
+          "designWidth": 720,
+          "autoDesignWidth": true
+        },
+        "type": "form"
+      }
+    ]
+  }
+}

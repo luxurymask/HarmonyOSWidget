@@ -1,0 +1,20 @@
+{
+  "data": {
+    "title": "Title",
+    "detail": "Text",
+    "iconTitle": "Picture",
+    "imageSrc": "common/godfather3.jpeg",
+    "backgroundColor": "red",
+    "imageRatio": 1.46
+  },
+  "actions": {
+    "routerEvent": {
+      "action": "router",
+      "bundleName": "com.liuxl.harmonyoswidget",
+      "abilityName": "com.liuxl.harmonyoswidget.MainAbility",
+      "params": {
+        "message": "add detail"
+      }
+    }
+  }
+}
