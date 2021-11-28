@@ -9,6 +9,7 @@ import ohos.aafwk.ability.FormBindingData;
 import ohos.aafwk.ability.ProviderFormInfo;
 import ohos.aafwk.content.Intent;
 import ohos.app.Context;
+import ohos.app.Environment;
 import ohos.eventhandler.EventHandler;
 import ohos.eventhandler.EventRunner;
 import ohos.global.resource.NotExistException;
@@ -23,8 +24,8 @@ import ohos.media.image.common.Position;
 import ohos.media.image.common.Size;
 import ohos.utils.zson.ZSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.ByteBuffer;
 
 import static com.dingmouren.paletteimageview.util.ColorUtil.*;
 
@@ -69,8 +70,15 @@ public class WidgetImpl extends FormController {
                 zsonObject.put("imageSrc", "memory://bg" + timestamp + ".jpeg");
                 FormBindingData formBindingData = new FormBindingData(zsonObject);
                 PixelMap resultPixelMap = getImageToChange(pixelMap);
-
+//                savePixelMap(resultPixelMap, "test.png");
                 Size size = resultPixelMap.getImageInfo().size;
+
+//                ByteBuffer byteBuffer = ByteBuffer.allocate(size.width * size.height * 4);
+//                resultPixelMap.readPixels(byteBuffer);
+//                byteBuffer.flip();
+//                byte[] bytes = new byte[byteBuffer.capacity()];
+//                byteBuffer.get(bytes);
+
                 byte[] bytes = new byte[size.width * size.height * 4];
                 saveBytes(bytes, resultPixelMap);
 
@@ -131,6 +139,24 @@ public class WidgetImpl extends FormController {
             }
         }
         return resultPixelMap;
+    }
+
+    private long savePixelMap(PixelMap pixelMap, String fileName){
+        ImagePacker imagePacker = ImagePacker.create();
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), fileName);
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ImagePacker.PackingOptions packingOptions = new ImagePacker.PackingOptions();
+        packingOptions.format = "image/jpeg";
+        packingOptions.quality = 100;
+        boolean result = imagePacker.initializePacking(outputStream, packingOptions);
+        result = imagePacker.addImage(pixelMap);
+        return imagePacker.finalizePacking();
     }
 
     private long saveBytes(byte[] bytes, PixelMap pixelMap) {
